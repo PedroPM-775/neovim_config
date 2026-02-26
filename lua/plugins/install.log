@@ -1,0 +1,8 @@
+[10:46:07 2026-02-26] FETCHING Version 2.42.11
+[10:46:07 2026-02-26] DOWNLOADING https://github.com/spicetify/cli/releases/download/v2.42.11/spicetify-2.42.11-linux-amd64.tar.gz
+[10:46:08 2026-02-26] EXTRACTING /home/pedro/.spicetify/spicetify.tar.gz
+[10:46:08 2026-02-26] SETTING EXECUTABLE PERMISSIONS TO /home/pedro/.spicetify/spicetify
+[10:46:08 2026-02-26] REMOVING /home/pedro/.spicetify/spicetify.tar.gz
+[10:46:08 2026-02-26] APPENDING /home/pedro/.spicetify to PATH in /home/pedro/.config/fish/config.fish
+[10:46:08 2026-02-26] spicetify v2.42.11 was installed successfully to /home/pedro/.spicetify
+[10:46:08 2026-02-26] Run 'spicetify --help' to get started
