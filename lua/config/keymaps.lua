@@ -7,9 +7,12 @@ vim.keymap.set("n", "gt", function()
   local line = vim.api.nvim_get_current_line()
   local col = vim.api.nvim_win_get_cursor(0)[2] + 1
   local path = nil
-  for p1, c, p2 in line:gmatch("()([\"'])(.-)%2()") do
-    if col >= p1 and col <= p2 then
-      path = c
+
+  -- Captures: 1:p1, 2:quote, 3:inner_path, 4:end_quote, 5:p2
+  for p1, _, filepath, _, p2 in line:gmatch("()([\"'])(.-)(%2)()") do
+    -- Force numeric comparisons for column bounds
+    if col >= tonumber(p1) and col <= tonumber(p2) then
+      path = filepath
       break
     end
   end
@@ -60,8 +63,9 @@ vim.keymap.set("n", "<leader>rr", "<cmd>R<cr>", { desc = "Rails: Salta a archivo
 -- Buscar directamente en el schema.rb con Snacks
 vim.keymap.set("n", "<leader>fs", function()
   Snacks.picker.grep({
-    search = "create_table",
+    search = "create_table \"",
     buffers = false,
     files = { "db/schema.rb" },
   })
 end, { desc = "Buscar tabla en db/schema.rb" })
+vim.keymap.set("n", "<leader>a", "gf", { remap = true, desc = "Ir al archivo relacionado (Rails GF)" })
