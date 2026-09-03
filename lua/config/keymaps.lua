@@ -2,6 +2,7 @@ vim.keymap.set("n", "<leader>ñ", function() Snacks.dashboard.open() end, { desc
 vim.keymap.set("n", "<leader>e", function()
   Snacks.explorer.open({ layout = { layout = { position = "right" } } })
 end, { desc = "Explorer Snacks (Derecha)" })
+
 -- Jump to whatever is inside the quotes under the cursor
 vim.keymap.set("n", "gt", function()
   local line = vim.api.nvim_get_current_line()
@@ -29,14 +30,11 @@ vim.keymap.set("n", "gt", function()
     end
   end
 end, { desc = "Go to File in Quotes" })
+
 vim.keymap.set("n", "<leader>mñ", function()
   Snacks.picker.files({ ignored = true })
 end, { desc = "Buscar archivos (incluidos ocultos)" })
--- ============================================================================
--- Navegación súper rápida por Rails con Snacks.picker
--- ============================================================================
 
--- Navegar por modelos, controladores y vistas buscando con Snacks
 vim.keymap.set("n", "<leader>rm", function()
   Snacks.picker.files({ dirs = { "app/models" }, title = "Modelos Rails" })
 end, { desc = "Rails: Buscar Modelos" })
@@ -48,10 +46,6 @@ end, { desc = "Rails: Buscar Controladores" })
 vim.keymap.set("n", "<leader>rv", function()
   Snacks.picker.files({ dirs = { "app/views" }, title = "Vistas Rails" })
 end, { desc = "Rails: Buscar Vistas" })
-
-vim.keymap.set("n", "<leader>rs", function()
-  Snacks.picker.files({ dirs = { "spec", "test" }, title = "Specs / Tests" })
-end, { desc = "Rails: Buscar Tests" })
 
 vim.keymap.set("n", "<leader>rp", function()
   Snacks.picker.files({ dirs = { "app/policies" }, title = "Policies" })
