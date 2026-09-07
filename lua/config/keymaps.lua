@@ -1,17 +1,21 @@
-vim.keymap.set("n", "<leader>ñ", function() Snacks.dashboard.open() end, { desc = "Ir al Dashboard" })
+vim.keymap.set("n", "<leader>ñ", function()
+  Snacks.dashboard.open()
+end, { desc = "Dashboard" })
+
 vim.keymap.set("n", "<leader>e", function()
   Snacks.explorer.open({ layout = { layout = { position = "right" } } })
-end, { desc = "Explorer Snacks (Derecha)" })
+end, { desc = "Explorer" })
 
--- Jump to whatever is inside the quotes under the cursor
+vim.keymap.set("n", "<leader>mñ", function()
+  Snacks.picker.files({ ignored = true })
+end, { desc = "Files (ignored)" })
+
 vim.keymap.set("n", "gt", function()
   local line = vim.api.nvim_get_current_line()
   local col = vim.api.nvim_win_get_cursor(0)[2] + 1
-  local path = nil
+  local path
 
-  -- Captures: 1:p1, 2:quote, 3:inner_path, 4:end_quote, 5:p2
   for p1, _, filepath, _, p2 in line:gmatch("()([\"'])(.-)(%2)()") do
-    -- Force numeric comparisons for column bounds
     if col >= tonumber(p1) and col <= tonumber(p2) then
       path = filepath
       break
@@ -19,47 +23,31 @@ vim.keymap.set("n", "gt", function()
   end
 
   if path and path ~= "" then
-    Snacks.picker.files({
-      pattern = path,
-      title = "Jumping to: " .. path,
-    })
+    Snacks.picker.files({ pattern = path, title = path })
   else
-    local ok, _ = pcall(vim.cmd, "normal! gf")
+    local ok = pcall(vim.cmd, "normal! gf")
     if not ok then
       vim.notify("No se encontró una ruta válida", vim.log.levels.WARN)
     end
   end
-end, { desc = "Go to File in Quotes" })
+end, { desc = "Go to file in quotes" })
 
-vim.keymap.set("n", "<leader>mñ", function()
-  Snacks.picker.files({ ignored = true })
-end, { desc = "Buscar archivos (incluidos ocultos)" })
+local rails = {
+  m = { "app/models", "Models" },
+  c = { "app/controllers", "Controllers" },
+  v = { "app/views", "Views" },
+  p = { "app/policies", "Policies" },
+}
 
-vim.keymap.set("n", "<leader>rm", function()
-  Snacks.picker.files({ dirs = { "app/models" }, title = "Modelos Rails" })
-end, { desc = "Rails: Buscar Modelos" })
+for key, spec in pairs(rails) do
+  vim.keymap.set("n", "<leader>r" .. key, function()
+    Snacks.picker.files({ dirs = { spec[1] }, title = spec[2] })
+  end, { desc = "Rails " .. spec[2] })
+end
 
-vim.keymap.set("n", "<leader>rc", function()
-  Snacks.picker.files({ dirs = { "app/controllers" }, title = "Controladores Rails" })
-end, { desc = "Rails: Buscar Controladores" })
-
-vim.keymap.set("n", "<leader>rv", function()
-  Snacks.picker.files({ dirs = { "app/views" }, title = "Vistas Rails" })
-end, { desc = "Rails: Buscar Vistas" })
-
-vim.keymap.set("n", "<leader>rp", function()
-  Snacks.picker.files({ dirs = { "app/policies" }, title = "Policies" })
-end, { desc = "Rails: Buscar Policies" })
-
--- Los saltos contextuales inmediatos (estos SÍ funcionan solos si estás en un archivo de Rails)
-vim.keymap.set("n", "<leader>ra", "<cmd>A<cr>", { desc = "Rails: Salta a test/spec alternativo (:A)" })
-vim.keymap.set("n", "<leader>rr", "<cmd>R<cr>", { desc = "Rails: Salta a archivo relacionado (:R)" })
--- Buscar directamente en el schema.rb con Snacks
+vim.keymap.set("n", "<leader>ra", "<cmd>A<cr>", { desc = "Rails alternate" })
+vim.keymap.set("n", "<leader>rr", "<cmd>R<cr>", { desc = "Rails related" })
+vim.keymap.set("n", "<leader>a", "gf", { remap = true, desc = "Goto file" })
 vim.keymap.set("n", "<leader>fs", function()
-  Snacks.picker.grep({
-    search = "create_table \"",
-    buffers = false,
-    files = { "db/schema.rb" },
-  })
-end, { desc = "Buscar tabla en db/schema.rb" })
-vim.keymap.set("n", "<leader>a", "gf", { remap = true, desc = "Ir al archivo relacionado (Rails GF)" })
+  Snacks.picker.grep({ search = 'create_table "', glob = "db/schema.rb" })
+end, { desc = "Schema table" })
