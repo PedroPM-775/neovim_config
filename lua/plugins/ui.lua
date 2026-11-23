@@ -134,10 +134,9 @@ local function tube_row(kind, cell)
 end
 
 local function divergence_meter()
-  local cells = { { digit = tostring(math.random(0, 1)) }, { dot = true } }
-  local frac = string.format("%06d", math.random(0, 999999))
+  local cells = { { digit = "1" }, { dot = true } }
   for i = 1, 6 do
-    cells[#cells + 1] = { digit = frac:sub(i, i) }
+    cells[#cells + 1] = { digit = ("048596"):sub(i, i) }
   end
 
   local rows = {
@@ -201,12 +200,26 @@ return {
       vim.api.nvim_create_autocmd("ColorScheme", { callback = nixie_hl })
     end,
     opts = {
+      lazygit = {
+        configure = true,
+        config = {
+          os = { editPreset = "nvim-remote" },
+          gui = { nerdFontsVersion = "3" },
+        },
+      },
       dashboard = {
         width = 72,
         sections = {
           divergence_meter,
           { section = "keys", gap = 1, padding = 1 },
           { section = "startup" },
+        },
+      },
+      picker = {
+        sources = {
+          explorer = {
+            layout = { layout = { position = "right" } },
+          },
         },
       },
     },

@@ -3,7 +3,7 @@ vim.keymap.set("n", "<leader>ñ", function()
 end, { desc = "Dashboard" })
 
 vim.keymap.set("n", "<leader>e", function()
-  Snacks.explorer.open({ layout = { layout = { position = "right" } } })
+  Snacks.explorer.open()
 end, { desc = "Explorer" })
 
 vim.keymap.set("n", "<leader>mñ", function()
