@@ -1,4 +1,4 @@
-local rails_ft = { "ruby", "eruby", "eruby.html", "yaml", "eruby.yaml" }
+local rails_ft = { "ruby", "eruby", "eruby.html", "eruby.yaml" }
 
 -- lazy.nvim's `keys` + `ft` installs an <expr> placeholder until the plugin
 -- loads. A sequence ending in `v` then falls through into visual mode, so

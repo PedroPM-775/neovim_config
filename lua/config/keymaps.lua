@@ -51,3 +51,15 @@ vim.keymap.set("n", "<leader>a", "gf", { remap = true, desc = "Goto file" })
 vim.keymap.set("n", "<leader>fs", function()
   Snacks.picker.grep({ search = 'create_table "', glob = "db/schema.rb" })
 end, { desc = "Schema table" })
+
+-- Spanish layout: Ctrl+/ is the 7 key. Kitty reports it as <C-7>, not <C-/>.
+vim.keymap.set({ "n", "t" }, "<C-7>", function()
+  Snacks.terminal.focus(nil, { cwd = LazyVim.root() })
+end, { desc = "Terminal (Root Dir)" })
+
+Snacks.toggle.option("laststatus", {
+  off = 0,
+  on = vim.o.laststatus > 0 and vim.o.laststatus or 3,
+  global = true,
+  name = "Statusline",
+}):map("<leader>uB")

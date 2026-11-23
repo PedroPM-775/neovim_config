@@ -32,25 +32,6 @@ return {
     "mason-org/mason.nvim",
     opts = function(_, opts)
       opts.ensure_installed = without(opts.ensure_installed, "markdownlint-cli2")
-      for _, pkg in ipairs({ "rubocop", "ruby-lsp" }) do
-        opts.ensure_installed = without(opts.ensure_installed, pkg)
-      end
     end,
-  },
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        phpactor = { enabled = false },
-        intelephense = { enabled = false },
-        vtsls = { enabled = false },
-        ts_ls = { enabled = false },
-        eslint = { enabled = false },
-        tailwindcss = { enabled = false },
-        rubocop = { enabled = false },
-        ruby_lsp = { enabled = false },
-        solargraph = { enabled = false },
-      },
-    },
   },
 }

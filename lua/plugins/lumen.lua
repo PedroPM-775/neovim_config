@@ -1,14 +1,13 @@
 local function map_lumen_gl()
   pcall(vim.keymap.del, "n", "<leader>gL")
   vim.keymap.set("n", "<leader>gL", function()
+    require("lazy").load({ plugins = { "lumen.nvim" } })
     require("lumen").pick_diff()
   end, { desc = "Lumen diff (pick branches)" })
 end
 
 return {
   "PedroPM-775/lumen.nvim",
-  lazy = false,
-  priority = 1000,
   dependencies = {
     "folke/snacks.nvim",
   },

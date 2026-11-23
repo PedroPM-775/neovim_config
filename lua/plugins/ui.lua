@@ -190,7 +190,19 @@ return {
     "xiyaowong/transparent.nvim",
     lazy = false,
     opts = {
-      extra_groups = { "NormalFloat" },
+      extra_groups = {
+        "NormalFloat",
+        "FloatBorder",
+        "FloatTitle",
+        "FloatFooter",
+        "SnacksNormal",
+        "SnacksNormalNC",
+        "SnacksPicker",
+        "SnacksPickerNormal",
+        "SnacksPickerBorder",
+        "SnacksPickerInput",
+        "SnacksPickerInputBorder",
+      },
     },
   },
   {
@@ -219,6 +231,12 @@ return {
         sources = {
           explorer = {
             layout = { layout = { position = "right" } },
+          },
+          files = {
+            exclude = { "spec/**", "specs/**" },
+          },
+          grep = {
+            exclude = { "spec/**", "specs/**" },
           },
         },
       },
